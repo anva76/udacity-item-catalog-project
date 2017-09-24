@@ -36,3 +36,7 @@ Finally, run the main file:
 * cd <your subfolder>
 * python3 catalog_app.py
 ```
+In your browser, open the following address:
+```
+http://localhost:8000
+```
