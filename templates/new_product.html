@@ -1,0 +1,59 @@
+{% extends "basic.html" %}
+{% block header %}
+{{ super() }}
+<section class="row">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    {% if category is not defined %}
+     <li class="active">New Product</li>
+    {% else %}
+     <li><a href="{{url_for('show_category',id=category.id)}}">{{ category.name }}</a></li>
+     <li class="active">New Product</li>
+    {% endif %}
+  </ul>
+</section>
+{% endblock %}
+{% block content %}
+<section class="row">
+ <div class="col-md-6">
+  <h2 class="h-color">Add a new product</h2>
+  <form action="{{params.submit_url}}" method="post" enctype="multipart/form-data">
+    <hr />
+    <div class="form-group">
+      <label class="btn btn-default btn-sm" for="picfile">
+        <input type="file" name="picfile" id="picfile" style="display:none;" onchange="$('#file-info').html(this.files[0].name)">
+        Add Picture
+      </label>
+      <span class='label label-info' id="file-info"></span>
+    </div>
+    <hr />
+    <div class="form-group">
+     <label class="control-label" for="name">Name</label>
+     <input class="form-control" type="text" id= "name" name="name" value="">
+    </div>
+    <div class="form-group">
+     <label class="control-label" for="description">Description</label>
+     <textarea class="form-control" rows="4" cols="25" id= "description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+     <label class="control-label" for="category">Category</label>
+     <select class="form-control" name="category">
+      {% if category is not defined %}
+       {% for item in categories %}
+         <option value="{{item.id}}">{{item.name}}</option>
+       {% endfor %}
+       <option value="" SELECTED>Select a category</option>
+      {% else %}
+       {% for item in categories %}
+          <option value="{{item.id}}"{% if item.id == category.id %} SELECTED{% endif %}>{{item.name}}</option>
+       {% endfor %}
+      {% endif %}
+     </select>
+    </div>
+    <hr />
+    <input type="submit" class="btn btn-primary" value="OK">
+    <a class="btn btn-default" href="{{params.cancel_url}}" role="button">Cancel</a>
+  </form>
+ </div>
+</section>
+{% endblock %}

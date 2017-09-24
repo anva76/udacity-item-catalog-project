@@ -1,0 +1,20 @@
+{% extends "basic.html" %}
+{% block header %}
+{{ super() }}
+<section class="row">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="{{url_for('show_category',id=product.category.id)}}">{{ product.category.name }}</a></li>
+    <li class="active">Delete Product</li>
+  </ul>
+</section>
+{% endblock %}
+{% block content %}
+  <h2>Delete {{product.name}}</h2>
+  <form action="{{ url_for('delete_product',id=product.id)}}" method="post">
+    <p> Do you really want to delete the {{product.name}} product?</p>
+    <hr />
+    <input type="submit" class="btn btn-primary" value="OK">
+    <a class="btn btn-default" href="{{url_for('show_category',id=product.category.id)}}" role="button">Cancel</a>
+  </form>
+{% endblock %}

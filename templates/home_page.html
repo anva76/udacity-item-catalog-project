@@ -1,0 +1,77 @@
+{% extends "basic.html" %}
+
+{% block header %}
+{{ super() }}
+<section class="row">
+   <ul class="breadcrumb">
+     <li><a class="active" href="/">Home</a></li>
+   </ul>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="row">
+   <div class="col-md-4">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="h2">
+            <div class="margin-bottom-10 pull-left h-color">Categories</div>
+             {% with user_name = session['username'] %}
+              {% if (user_name) and (user_name != None) %}
+               <a class="btn btn-default btn-sm margin-left-10" href="{{url_for('new_category')}}" role="button">Add</a>
+              {% endif %}
+             {% endwith %}
+         </div>
+        </div>
+      </div>
+      <div class="app-separator"></div>
+     {% for item in categories %}
+     <div class="row">
+      <div class="col-md-12">
+       <div class="mh4">
+         <a class="" href="{{url_for('show_category',id=item.id)}}">{{ item.name }}</a>
+         {% with user_name = session['username'] %}
+          {% if (user_name) and (user_name != None) %}
+           <a class="btn btn-default btn-xs margin-left-10" href="{{url_for('edit_category',id=item.id)}}" role="button">Edit</a>
+           <a class="btn btn-default btn-xs" href="{{url_for('delete_category',id=item.id)}}" role="button">Del</a>
+         {% endif %}
+        {% endwith %}
+       </div>
+      </div>
+     </div>
+     {% endfor %}
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+     <div class="col-md-12">
+      <div class="h2">
+       <div class="margin-bottom-10 pull-left h-color">Latest Products</div>
+       {% with user_name = session['username'] %}
+        {% if (user_name) and (user_name != None) %}
+         <a class="btn btn-default btn-sm margin-left-10" href="{{url_for('new_product_alt')}}" role="button">Add</a>
+        {% endif %}
+       {% endwith %}
+      </div>
+     </div>
+    </div>
+    <div class="app-separator"></div>
+    <div class="row">
+     <div class="col-md-12 margin-top-15">
+     {% for item in products  %}
+      <div class="col-md-4 margin-bottom-10" >
+        <a class="" href="{{ url_for('show_product',id=item.id)}}">
+         {% if item.picture_file|length != 0 %}
+           <img class="img-thumbnail" src="{{url_for('static',filename='uploads/'+item.picture_file)}}" alt="{{item.name}}" width="180">
+         {% else %}
+           <img class="img-thumbnail" src="{{url_for('static',filename='images/placeholder.png')}}" alt="{{item.name}}" width="180">
+         {% endif %}
+         <div class="t-title">{{item.name}}</div>
+         <div class="mh5 i-span">{{item.category.name}}</div>
+        </a>
+      </div>
+     {% endfor %}
+    </div>
+   </div>
+  </div>
+</section>
+{% endblock %}

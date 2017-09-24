@@ -1,0 +1,26 @@
+{% extends "basic.html" %}
+{% block header %}
+{{ super() }}
+<section class="row">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Edit Category</li>
+  </ul>
+</section>
+{% endblock %}
+{% block content %}
+<section class="row">
+ <div class="col-md-6">
+  <h2 class="h-color">Edit a category:</h2>
+  <form action="{{ url_for('edit_category',id=category.id)}}" method="post">
+    <div class="form-group">
+     <label class="control-label" for="name">Name</label>
+     <input class="form-control" type="text" id= "name" name="name" value="{{category.name}}">
+    </div>
+    <hr />
+    <input type="submit" class="btn btn-primary" value="Update">
+    <a class="btn btn-default" href="{{url_for('show_home_page')}}" role="button">Cancel</a>
+  </form>
+ </div>
+</section>
+{% endblock %}
