@@ -32,7 +32,7 @@ Then log into the virtual machine by running `vagrant ssh` inside the `vagrant` 
 
 Finally, run the main file:
 ```
-* ca /vagrant
+* cd /vagrant
 * cd <your subfolder>
 * python3 catalog_app.py
 ```
